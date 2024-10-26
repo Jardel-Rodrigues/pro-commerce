@@ -19,8 +19,8 @@ public class OpenApiConfig {
     OpenAPI customOpenAPI() {
         return new OpenAPI()
            .info(new Info()
-           .title("Vagas Online API")
-           .description("Sistema de vagas online")
+           .title("Pro Commerce API")
+           .description("Sistema de E-Commerce")
            .version("v0.0.1")
            .license(new License()
            .name("Apache 2.0")

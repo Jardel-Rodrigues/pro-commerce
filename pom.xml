@@ -11,10 +11,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.softstrem</groupId>
-	<artifactId>compre-online</artifactId>
+	<artifactId>pro-commerce</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>compre-online</name>
-	<description>Sistema de E-commerce</description>
+	<name>pro-commerce</name>
+	<description>Sistema de e-commerce</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
