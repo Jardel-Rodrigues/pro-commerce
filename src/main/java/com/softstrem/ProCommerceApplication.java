@@ -9,5 +9,4 @@ public class ProCommerceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ProCommerceApplication.class, args);
 	}
-
 }

@@ -42,6 +42,7 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Acce
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -68,24 +69,27 @@ public class AuthorizationServerConfig {
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
-
+	
+	@Autowired
+    private CorsConfigurationSource corsConfigurationSource;
+		
 	@Bean
 	@Order(2) // Autentica o user
 	SecurityFilterChain asSecurityFilterChain(HttpSecurity http) throws Exception {
+	    OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
 
-		OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+	    http.cors(cors -> cors.configurationSource(corsConfigurationSource));
 
-		// @formatter:off
-		http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
-			.tokenEndpoint(tokenEndpoint -> tokenEndpoint
-				.accessTokenRequestConverter(new CustomPasswordAuthenticationConverter())
-				.authenticationProvider(new CustomPasswordAuthenticationProvider(authorizationService(), tokenGenerator(), userDetailsService, passwordEncoder)));
+	    http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
+	        .tokenEndpoint(tokenEndpoint -> tokenEndpoint
+	            .accessTokenRequestConverter(new CustomPasswordAuthenticationConverter())
+	            .authenticationProvider(new CustomPasswordAuthenticationProvider(authorizationService(), tokenGenerator(), userDetailsService, passwordEncoder)));
 
-		http.oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(Customizer.withDefaults()));
-		// @formatter:on
-		return http.build();
+	    http.oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(Customizer.withDefaults()));
+
+	    return http.build();
 	}
-
+	
 	@Bean
 	OAuth2AuthorizationService authorizationService() {
 		return new InMemoryOAuth2AuthorizationService();
