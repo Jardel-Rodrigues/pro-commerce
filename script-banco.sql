@@ -166,6 +166,7 @@ INSERT INTO pro_commerce.tb_user (name, email, phone, password, birth_date) VALU
 
 INSERT INTO pro_commerce.tb_role (authority) VALUES ('ROLE_CLIENT');
 INSERT INTO pro_commerce.tb_role (authority) VALUES ('ROLE_ADMIN');
+
 INSERT INTO pro_commerce.tb_user_role (user_id, role_id) VALUES (1, 1);
 INSERT INTO pro_commerce.tb_user_role (user_id, role_id) VALUES (2, 1);
 INSERT INTO pro_commerce.tb_user_role (user_id, role_id) VALUES (2, 2);
